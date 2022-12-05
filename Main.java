@@ -1,58 +1,53 @@
 package com.JoeMama;
 
-class Main {
-    public static void main(String[] args){
-        int[][] matrice = Matrix.input(true);
+import java.util.Scanner;
 
-        double risultato = 0;
-        int somma;
-        int max = 0;
-        int maxriga = 0;
-        int[] somme = new int[matrice.length];
+public class Matrix {
 
-        double[] media1 = new double[matrice.length];
-        for (double i : media1) {
-            media1[(int) i] = 0;
-        }
+    public static int[][] input(boolean valori) {
+        Scanner scam = new Scanner(System.in);
 
+        System.out.println("Dimmi la grandezza della matrice (numx X numy)");
+        String input = scam.nextLine().toLowerCase();
 
-        //calcolo media aritmetica
+        int spazio = 0;
+        int len;
+        int hig;
 
+        //misura
 
-        for (int i = 0; i < matrice.length; i++) {
-            for (int j = 0; j < matrice.length; j++) {
-                media1[i] += matrice[i][j];
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == 120) {
+                spazio = i;
+                break;
             }
-            risultato += media1[i];
         }
-        risultato = risultato / matrice.length;
+        len=Integer.parseInt(input.substring(0, spazio));
+        hig=Integer.parseInt(input.substring(spazio+1));
 
-        System.out.println("La media aritmetica e' di: " + risultato);
+        int[][] matrice = new int[len][hig];
 
-        //calcolo riga piu alta
-
-        for (int i = 0; i < matrice.length; i++) {
-            somma = 0;
-            for (int j = 0; j < matrice.length; j++) {
-                somma += matrice[i][j];
+        //contenuto
+        if (valori){
+            for (int i=0;i<len;i++){
+                for(int j=0;j<hig;j++){
+                    System.out.println("Dimmi la variabile "+j+" della colonna "+i);
+                    matrice[i][j]=scam.nextInt();
+                }
             }
 
-            if (somma > max) {
-                max = somma;
-                maxriga = i;
-            }
-            somme[i] = somma;
         }
-
-        System.out.print("La somma piu alta e' " + max + " nella riga " + maxriga+"\n");
-
-        //somme per colonna
-        System.out.print("{");
-
-        for (int i = 0; i < matrice.length - 1; i++) {
-            System.out.print(somme[i] + ",");
-        }
-        System.out.print(somme[somme.length-1]+"}");
+        return matrice;
     }
 
+    public static int[][] fillRandom(int len,int high) {
+        int[][] matrice=new int[len][high];
+
+        for (int x=0;x<len;x++) {
+            for (int y = 0; y <high; y++) {
+                matrice[x][y]= (int) (Math.random() * 100);
+            }
+        }
+        return matrice;
+    }
 }
