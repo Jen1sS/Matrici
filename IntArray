@@ -1,0 +1,85 @@
+package com.JoeMama;
+
+import java.util.Arrays;
+
+public class IntArray {
+    private int length;
+    private int Array[];
+
+    public IntArray(int NumElementi) {
+        this.length = NumElementi;
+        this.Array = new int[NumElementi];
+    }
+
+    public void fillRandom(int minimo, int massimo) {
+        for (int i = 0; i < this.length - 1; i++) {
+            Array[i] = (int) (Math.random() * (massimo - minimo) + minimo);
+        }
+    }
+
+    public String toString() {
+
+        System.out.print("[");
+
+        for (int i = 0; i < this.length - 1; i++) {
+            System.out.print(this.Array[i] + ",");
+        }
+        System.out.println(Array[this.length - 1] + "]");
+
+        return null;
+    }
+
+    public void sostituisci(int IndexOldElement, int NewElement) {
+        Array[IndexOldElement] = NewElement;
+    }
+
+    public void trovaEsostituisci(int OldElement, int NewElement) {
+        int i = trova(OldElement);
+        if (i!=-1){
+            Array[i] = NewElement;
+        }
+    }
+
+
+    public int trova(int Element) {
+        for (int i = 0; i < this.length - 1; i++) {
+            if (Element == Array[i]) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public void rimuovi(int Element) {
+        int[] risult=new int[length-1];
+        int end=trova(Element);
+
+        for (int i = 0; i <= end - 1; i++) {
+            risult[i]=Array[i];
+        }
+
+        for (int i=end;i<length-2;i++){
+            risult[i]= Array[i+1];
+        }
+
+        length--;
+        Array=new int[length];
+        Array=risult;
+    }
+
+    public void Insert(int Element,int Index) {
+        int[] risult=new int[length+1];
+        for (int i = 0; i <= Index - 1; i++) {
+            risult[i]=Array[i];
+        }
+        for (int i=Index+1;i<length;i++){
+            risult[i]= Array[i-1];
+        }
+        length++;
+        Array=new int[length];
+        Array=risult;
+    }
+
+
+}
